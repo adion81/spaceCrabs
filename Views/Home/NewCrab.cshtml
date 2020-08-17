@@ -1,0 +1,34 @@
+@model Crab
+
+<form action="/create/crab" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Name:</label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Weapon">Weapon:</label>
+        <input asp-for="Weapon" class="form-control">
+        <span asp-validation-for="Weapon" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SpaceCraft">Space Craft:</label>
+        <input asp-for="SpaceCraft" class="form-control">
+        <span asp-validation-for="SpaceCraft" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Birthday">Birthday:</label>
+        <input asp-for="Birthday" class="form-control">
+        <span asp-validation-for="Birthday" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PlanetId">Home Planet:</label>
+        <select asp-for="PlanetId" class="form-control">
+            @foreach( var p in ViewBag.Planets)
+            {
+                <option value="@p.PlanetId">@p.Name</option>
+            }
+        </select>
+    </div>
+    <input type="submit" value="Create Crab" class="btn btn-warning">
+</form>

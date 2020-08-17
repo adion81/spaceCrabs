@@ -1,0 +1,26 @@
+@model List<Crab>
+
+<table class="table table-hover">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Weapon</th>
+            <th>Space Craft</th>
+            <th>Age</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var c in Model)
+        {
+            <tr>
+                <td>@c.Name</td>
+                <td>@c.Weapon</td>
+                <td>@c.SpaceCraft</td>
+                <td>@c.Age()</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>

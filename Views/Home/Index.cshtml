@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model Planet
+
+<form action="/create/planet" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Name:</label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="System">System:</label>
+        <input asp-for="System" class="form-control">
+        <span asp-validation-for="System" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Galaxy">Space Craft:</label>
+        <input asp-for="Galaxy" class="form-control">
+        <span asp-validation-for="Galaxy" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Create Planet" class="btn btn-warning">
+</form>
