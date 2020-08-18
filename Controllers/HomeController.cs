@@ -51,7 +51,14 @@ namespace SpaceCrabs.Controllers
         [HttpGet("crabs")]
         public IActionResult Crabs()
         {
-            List<Crab> AllCrabs = _context.Crabs.ToList();
+            List<Crab> AllCrabs = _context.Crabs
+                                    .Include( c => c.HomePlanet )
+                                    .Include( c => c.MyTrips )
+                                    .ThenInclude( t => t.Visit)
+                                    .ToList();
+            ViewBag.Planets = _context.Planets
+                                    .Include( p => p.Tourists)
+                                    .ToList();
             return View(AllCrabs);
         }
 
@@ -70,6 +77,22 @@ namespace SpaceCrabs.Controllers
             }
         }
 
+        [HttpGet("planet/{planetId}")]
+        public IActionResult ShowPlanet(int planetId)
+        {
+            Planet show = _context.Planets
+                                .Include( p => p.Tourists )
+                                .ThenInclude( t=> t.Tourist )
+                                .FirstOrDefault( p => p.PlanetId == planetId );
+
+            ViewBag.CrabsNotTourists = _context.Crabs
+                                            .Include( c => c.MyTrips)
+                                            .Where( c => c.MyTrips.All( t => t.PlanetId != planetId ) )
+                                            .ToList();
+
+            return View(show);
+        }
+
         [HttpGet("planets")]
         public IActionResult Planets()
         {
@@ -78,6 +101,26 @@ namespace SpaceCrabs.Controllers
                                                         .ThenInclude( t => t.Tourist )
                                                         .ToList();
             return View(AllPlanets);
+        }
+
+        [HttpPost("trip")]
+        public IActionResult Trip(int crabId, int planetId)
+        {
+            Trip newTrip = new Trip();
+            newTrip.CrabId = crabId;
+            newTrip.PlanetId = planetId;
+            _context.Trips.Add(newTrip);
+            _context.SaveChanges();
+            return RedirectToAction("Crabs");
+        }
+
+        [HttpGet("cancel/trip/{planetId}/{crabId}")]
+        public IActionResult Cancel(int planetId, int crabId)
+        {
+            Trip ending = _context.Trips.FirstOrDefault( t => t.PlanetId == planetId && t.CrabId == crabId);
+            _context.Remove(ending);
+            _context.SaveChanges();
+            return RedirectToAction("Planets");
         }
 
         public IActionResult Privacy()

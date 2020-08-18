@@ -16,7 +16,7 @@
         @foreach(var p in Model)
         {
             <tr>
-                <td>@p.Name</td>
+                <td><a href="/planet/@p.PlanetId">@p.Name</a></td>
                 <td>@p.System</td>
                 <td>@p.Galaxy</td>
                 <td>@p.Inhabitants.Count</td>
@@ -32,28 +32,32 @@
 <div class="row">
 @foreach(var p in Model)
 {
-    <table class="table table-striped col-5">
-        <h2>@p.Name Visitor List</h2>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Weapon</th>
-                <th>Space Craft</th>
-                <th>Age</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach( var t in p.Tourists)
-            {
+    <div class="col-5 bg-info rounded shadow-lg p-3">
+        <h2 class="text-center">@p.Name Visitor List</h2>
+        <table class="table table-warning ">
+            <thead class="bg-dark text-warning">
                 <tr>
-                    <td>@t.Tourist.Name</td>
-                    <td>@t.Tourist.Weapon</td>
-                    <td>@t.Tourist.SpaceCraft</td>
-                    <td>@t.Tourist.Age()</td>
+                    <th>Name</th>
+                    <th>Weapon</th>
+                    <th>Space Craft</th>
+                    <th>Age</th>
+                    <th>Action</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach( var t in p.Tourists)
+                {
+                    <tr>
+                        <td>@t.Tourist.Name</td>
+                        <td>@t.Tourist.Weapon</td>
+                        <td>@t.Tourist.SpaceCraft</td>
+                        <td>@t.Tourist.Age()</td>
+                        <td><a href="/cancel/trip/@p.PlanetId/@t.Tourist.CrabId">Swipe Left</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
 }
 

@@ -1,0 +1,27 @@
+@model Planet
+
+<h1>Welcome to @Model.Name</h1>
+
+<h2>Here are our visitors</h2>
+@foreach( var t in Model.Tourists)
+{
+    <p>@t.Tourist.Name</p>
+}
+
+
+<form action="/trip" method="post">
+    <div class="form-group">
+        <input type="hidden" name="planetId" value="@Model.PlanetId">
+        <select name="crabId" class="form-control" >
+            @foreach(var c in ViewBag.CrabsNotTourists)
+            {
+                <option value="@c.CrabId">@c.Name</option>
+            }
+        </select>
+        <input type="submit" value="Lure Them In" class="btn btn-success">
+    </div>
+
+</form>
+
+
+

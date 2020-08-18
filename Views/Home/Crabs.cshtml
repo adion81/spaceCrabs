@@ -9,7 +9,7 @@
             <th>Weapon</th>
             <th>Space Craft</th>
             <th>Age</th>
-            <th>Actions</th>
+            <th>Take A Trip</th>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +20,21 @@
                 <td>@c.Weapon</td>
                 <td>@c.SpaceCraft</td>
                 <td>@c.Age()</td>
-                <td></td>
+                <td>
+                    <form action="/trip" class="form-inline" method="Post">
+                        <input type="hidden" name="crabId" value="@c.CrabId">
+                            <select class="form-control" name="planetId" >
+                                @foreach( var p in ViewBag.Planets)
+                                {
+                                    if(c.MyTrips.All(t => t.PlanetId != p.PlanetId))
+                                    {
+                                        <option value="@p.PlanetId" >@p.Name</option>
+                                    }
+                                }
+                            </select>
+                            <input type="submit" value="Blast Off" class="btn btn-danger">
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
