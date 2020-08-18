@@ -9,5 +9,7 @@ namespace SpaceCrabs.Contexts
 
         public DbSet<Crab> Crabs {get;set;}
         public DbSet<Planet> Planets {get;set;}
+
+        public DbSet<Trip> Trips {get;set;}
     }
 }

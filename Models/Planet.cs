@@ -21,6 +21,11 @@ namespace SpaceCrabs.Models
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
 
+
+        // Navigational Prop - One To Many - A planet can have many crabs living on it.
         public List<Crab> Inhabitants {get;set;} 
+
+        // Navigational Prop - Many To Many - A planet can have many crab tourists.
+        public List<Trip> Tourists {get;set;}
     }
 }

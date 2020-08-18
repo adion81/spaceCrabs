@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using SpaceCrabs.Validations;
 
@@ -26,7 +27,14 @@ namespace SpaceCrabs.Models
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
 
+        // Foreign Key - One To Many
         public int PlanetId {get;set;}
+
+        // Navigational Prop - One To Many - A crab can only live on one planet
+        public Planet HomePlanet {get;set;}
+
+        // Navigational Prop -  Many To Many - A crab can visit many planets
+        public List<Trip> MyTrips {get;set;}
 
         public int Age()
         {

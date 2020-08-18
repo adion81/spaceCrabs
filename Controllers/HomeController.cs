@@ -73,7 +73,10 @@ namespace SpaceCrabs.Controllers
         [HttpGet("planets")]
         public IActionResult Planets()
         {
-            List<Planet> AllPlanets = _context.Planets.Include( p => p.Inhabitants ).ToList();
+            List<Planet> AllPlanets = _context.Planets.Include( p => p.Inhabitants )
+                                                        .Include( p => p.Tourists)
+                                                        .ThenInclude( t => t.Tourist )
+                                                        .ToList();
             return View(AllPlanets);
         }
 
